@@ -64,8 +64,8 @@ const AllProducts = () => {
             সব পণ্য </h2>
 
             <p className="mt-2 text-sm text-gray-500 md:text-base">
-               মোট {products.length.toLocaleString("bn-BD")}টি পণ্য দেখানো হচ্ছে
-            </p>    
+                মোট {products.length.toLocaleString("bn-BD")}টি পণ্য দেখানো হচ্ছে
+            </p>
         </div>
 
         {/* Loading state */}
@@ -89,16 +89,9 @@ const AllProducts = () => {
 
         {/* All products */}
         {!loading && !error && products.length > 0 && (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {products.map((product) => (
-                    <Link
-                        key={product.id}
-                        href={`/products/${product.slug}`}
-                        className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
-                        aria-label={`${product.nameBn} এর বিস্তারিত দেখুন`}
-                    >
-                        <Cards product={product} />
-                    </Link>
+                    <Cards key={product.id} product={product} />
                 ))}
             </div>
         )}

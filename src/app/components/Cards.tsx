@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 const Cards = ({ product }) => {
   const {
@@ -40,6 +41,7 @@ const Cards = ({ product }) => {
     });
 
   return (
+    <Link href={`/product/${product.slug}`}>
     <article className="h-full rounded-2xl border border-gray-200 bg-white p-5 transition-all duration-200 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg">
       {/* Product information */}
       <div className="flex items-start justify-between gap-3">
@@ -80,6 +82,7 @@ const Cards = ({ product }) => {
         </p>
       </div>
     </article>
+    </Link>
   );
 };
 

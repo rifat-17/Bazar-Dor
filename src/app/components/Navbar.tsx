@@ -5,6 +5,7 @@ import Logo from "@/assets/logo-icon.png";
 import Image from "next/image";
 import CategoryNav from "./CategoryNav";
 import { Button } from "@heroui/react";
+import Link from "next/link";
 
 const Navbar = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -37,12 +38,19 @@ const Navbar = () => {
 
         {/* Right: Authentication */}
         <div className="flex items-center gap-3">
-          <Button variant="ghost">
+         <Link href={'/sign-in'}>
+          <Button
+          
+            variant="ghost">
             সাইন ইন
           </Button>
-          <Button variant="danger" >
+         </Link>
+          
+          <Link href={'/sign-up'}>
+          <Button className={'bg-green-700'} >
             সাইন আপ
           </Button>
+          </Link>
         </div>
       </div>
 

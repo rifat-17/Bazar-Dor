@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
-import MarqueeText from "react-marquee-text";
+
 import Navbar from "./components/Navbar";
-import Banner from "./components/Banner";
+
+import { ToastProvider } from "@heroui/react";
+import Footer from "./components/Footer";
 
 const notoSerifBengali = Noto_Serif_Bengali({
   variable: "--font-geist-sans",
@@ -28,6 +30,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Navbar/>
        
         {children}</body>
+        <Footer/>
+        <ToastProvider />
     </html>
   );
 }
