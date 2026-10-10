@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 
 import { ToastProvider } from "@heroui/react";
 import Footer from "./components/Footer";
+import { Toaster } from "react-hot-toast";
 
 const notoSerifBengali = Noto_Serif_Bengali({
   variable: "--font-geist-sans",
@@ -30,8 +31,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Navbar/>
        
         {children}</body>
-        <Footer/>
-        <ToastProvider />
+        {/* <Footer/> */}
+        <Toaster />
     </html>
   );
 }

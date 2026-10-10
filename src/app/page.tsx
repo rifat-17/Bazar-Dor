@@ -34,7 +34,7 @@ const products = await getProducts();
       <PriceRised products={products} />
       <PriceDown products={products} />
       <AllProducts products={products} />
-      <ProductDetailsPage />
+      {/* <ProductDetailsPage  /> */}
       <CategoryPage />
     </>
 
