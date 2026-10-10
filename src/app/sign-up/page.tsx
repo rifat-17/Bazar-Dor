@@ -23,9 +23,11 @@ const SignUpPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [socialLoading, setSocialLoading] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Email and password registration
-  const onSubmit = async (
+  // Email and password signup
+  const handleSignUp = async (
     event: React.SubmitEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
@@ -33,26 +35,17 @@ const SignUpPage = () => {
     const formData = new FormData(event.currentTarget);
 
     const name = String(formData.get("name") ?? "").trim();
-    const email = String(formData.get("email") ?? "").trim();
-    const password = String(formData.get("password") ?? "");
-    const confirmPassword = String(
-      formData.get("confirmPassword") ?? ""
-    );
+    const email = String(formData.get("email") ?? "")
+      .trim()
+      .toLowerCase();
 
-    if (!name) {
-      toast.danger("আপনার নাম লিখুন");
+    if (!name || !email || !password || !confirmPassword) {
+      toast.danger("সবগুলো তথ্য পূরণ করুন");
       return;
     }
 
     if (password.length < 8) {
       toast.danger("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে");
-      return;
-    }
-
-    if (!/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
-      toast.danger(
-        "পাসওয়ার্ডে একটি বড় হাতের ইংরেজি অক্ষর ও একটি সংখ্যা দিন"
-      );
       return;
     }
 
@@ -71,24 +64,23 @@ const SignUpPage = () => {
       });
 
       if (error) {
-        toast.danger(
-          error.message || "অ্যাকাউন্ট তৈরি করা যায়নি"
-        );
+        toast.danger(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি");
         return;
       }
 
       toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
 
-      router.push("/signin");
+      router.push("/");
       router.refresh();
-    } catch {
-      toast.danger("কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    } catch (error) {
+      console.error("Signup error:", error);
+      toast.danger("অ্যাকাউন্ট তৈরি করা যায়নি। আবার চেষ্টা করুন।");
     } finally {
       setLoading(false);
     }
   };
 
-  // Google registration
+  // Google signup
   const handleGoogleSignUp = async () => {
     setSocialLoading(true);
 
@@ -99,12 +91,11 @@ const SignUpPage = () => {
       });
 
       if (error) {
-        toast.danger(
-          error.message || "Google দিয়ে সাইন আপ ব্যর্থ হয়েছে"
-        );
+        toast.danger(error.message || "Google দিয়ে সাইন আপ করা যায়নি");
         setSocialLoading(false);
       }
-    } catch {
+    } catch (error) {
+      console.error("Google signup error:", error);
       toast.danger("Google দিয়ে সাইন আপ করা যাচ্ছে না");
       setSocialLoading(false);
     }
@@ -112,32 +103,35 @@ const SignUpPage = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#F0F5F0] px-4 py-12">
-      {/* Page heading */}
+      {/* Heading */}
       <div className="mb-8 w-full max-w-md space-y-3 text-center">
         <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-          অ্যাকাউন্ট তৈরি করুন
+          নতুন অ্যাকাউন্ট তৈরি করুন
         </h1>
 
         <p className="text-sm leading-6 text-gray-600">
-          বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।
+          বাজারের পণ্যের দাম দেখুন, বিভিন্ন বাজারের দাম তুলনা করুন
+          এবং আপনার প্রোফাইল পরিচালনা করুন।
         </p>
       </div>
 
       {/* Signup card */}
       <div className="w-full max-w-md space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
-        {/* Registration form */}
         <Form
           className="flex w-full flex-col gap-5"
-          onSubmit={onSubmit}
+          onSubmit={handleSignUp}
         >
           {/* Name */}
           <TextField
             isRequired
             name="name"
-            type="text"
             validate={(value) => {
               if (!value.trim()) {
                 return "আপনার নাম লিখুন";
+              }
+
+              if (value.trim().length < 2) {
+                return "নাম কমপক্ষে ২ অক্ষরের হতে হবে";
               }
 
               return null;
@@ -146,7 +140,7 @@ const SignUpPage = () => {
             <Label>আপনার নাম</Label>
 
             <Input
-              placeholder="আপনার পূর্ণ নাম লিখুন"
+              placeholder="আপনার পুরো নাম"
               autoComplete="name"
             />
 
@@ -160,9 +154,7 @@ const SignUpPage = () => {
             type="email"
             validate={(value) => {
               if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                  value
-                )
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
               ) {
                 return "সঠিক ইমেইল ঠিকানা লিখুন";
               }
@@ -190,14 +182,6 @@ const SignUpPage = () => {
                 return "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে";
               }
 
-              if (!/[A-Z]/.test(value)) {
-                return "কমপক্ষে একটি বড় হাতের ইংরেজি অক্ষর দিন";
-              }
-
-              if (!/[0-9]/.test(value)) {
-                return "কমপক্ষে একটি সংখ্যা দিন";
-              }
-
               return null;
             }}
           >
@@ -206,48 +190,20 @@ const SignUpPage = () => {
             <Input
               placeholder="কমপক্ষে ৮ অক্ষর"
               autoComplete="new-password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
             />
 
             <Description>
-              কমপক্ষে ৮ অক্ষর, একটি বড় হাতের অক্ষর ও একটি সংখ্যা দিন।
+              কমপক্ষে ৮ অক্ষরের একটি শক্তিশালী পাসওয়ার্ড দিন।
             </Description>
 
             <FieldError />
           </TextField>
 
-          {/* Confirm password */}
-          <TextField
-            isRequired
-            name="confirmPassword"
-            type="password"
-            validate={(value) => {
-              if (!value) {
-                return "পাসওয়ার্ড নিশ্চিত করুন";
-              }
+          
 
-              if (
-                value !==
-                (document.querySelector(
-                  'input[name="password"]'
-                ) as HTMLInputElement | null)?.value
-              ) {
-                return "দুটি পাসওয়ার্ড মিলছে না";
-              }
-
-              return null;
-            }}
-          >
-            <Label>পাসওয়ার্ড নিশ্চিত করুন</Label>
-
-            <Input
-              placeholder="আবার পাসওয়ার্ড লিখুন"
-              autoComplete="new-password"
-            />
-
-            <FieldError />
-          </TextField>
-
-          {/* Submit button */}
+          {/* Submit */}
           <Button
             type="submit"
             className="w-full bg-green-700 font-semibold text-white hover:bg-green-800"
@@ -266,7 +222,7 @@ const SignUpPage = () => {
           <div className="h-px flex-1 bg-gray-200" />
         </div>
 
-        {/* Google registration */}
+        {/* Google signup */}
         <Button
           type="button"
           onPress={handleGoogleSignUp}
@@ -274,22 +230,22 @@ const SignUpPage = () => {
           isDisabled={loading || socialLoading}
         >
           {socialLoading
-            ? "Google দিয়ে সাইন আপ হচ্ছে..."
-            : "Google দিয়ে চালিয়ে যান"}
+            ? "Google দিয়ে চালিয়ে যাচ্ছেন..."
+            : "Google দিয়ে সাইন আপ করুন"}
         </Button>
 
         {/* Sign-in link */}
         <p className="text-center text-sm text-gray-600">
-          অ্যাকাউন্ট আছে?{" "}
+          আগে থেকেই অ্যাকাউন্ট আছে?{" "}
           <Link
-            href="/sign-in"
+            href="/signin"
             className="font-semibold text-green-700 hover:underline"
           >
             সাইন ইন করুন
           </Link>
         </p>
 
-        {/* Back to home */}
+        {/* Home link */}
         <div className="border-t border-gray-100 pt-4 text-center">
           <Link
             href="/"
@@ -304,4 +260,3 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
-
