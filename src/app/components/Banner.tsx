@@ -31,12 +31,12 @@ const Banner = () => {
         </p>
 
         {/* CTA */}
-        <Link href={'/all-products'}>
+        <Link href={'#সব-পণ্য'}>
             <Button
           
-          color="success"
+          
           variant="danger"
-          className="font-semibold text-white"
+          className="font-semibold text-white bg-green-700"
           size="lg"
         >
           সব পণ্য দেখুন ↓

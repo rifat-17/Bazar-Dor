@@ -3,9 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 async function getProduct(slug: string): Promise<Product | null> {
-  // slug দিয়ে সরাসরি API নেই, তাই সব প্রোডাক্ট ফেচ করে slug match করবো
+ 
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
+    "https://openapi.programming-hero.com/api/bazardor/products",
     { next: { revalidate: 60 } }
   );
   if (!res.ok) return null;
@@ -13,7 +13,7 @@ async function getProduct(slug: string): Promise<Product | null> {
   return products.find((p) => p.slug === slug) || null;
 }
 
-export default async function ProductDetailPage({
+export default async function ProductPage({
   params,
 }: {
   params: Promise<{ slug: string }>;

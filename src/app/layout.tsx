@@ -4,7 +4,7 @@ import "./globals.css";
 
 import Navbar from "./components/Navbar";
 
-import { ToastProvider } from "@heroui/react";
+
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
 
@@ -28,11 +28,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${notoSerifBengali.variable}  h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar/>
-       
-        {children}</body>
-        {/* <Footer/> */}
-        <Toaster />
+        <Navbar />
+        <main className="min-h-screen">{children}</main>
+        <Footer />
+        <Toaster position="top-center" reverseOrder={false} />
+        </body>
+      
     </html>
   );
 }

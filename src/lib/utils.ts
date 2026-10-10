@@ -15,10 +15,19 @@ export function toEnglishNumber(str: string): number {
 }
 
 // দাম ফরম্যাট: কমা দিয়ে (যেমন ১,৮৫০)
-export function formatPrice(price: number): string {
-  const formatted = price.toLocaleString("en-IN"); // Indian style comma
+
+export function formatPrice(price: number | string | null | undefined): string {
+  const numericPrice = Number(price);
+
+  if (price === null || price === undefined || price === "" || !Number.isFinite(numericPrice)) {
+    return "০";
+  }
+
+  const formatted = numericPrice.toLocaleString("en-IN");
+
   return toBengaliNumber(formatted);
 }
+
 
 // ইউনিট বাংলায়
 export function getUnitBn(unit: string): string {
