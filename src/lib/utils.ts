@@ -41,19 +41,19 @@ export function getUnitBn(unit: string): string {
 }
 
 // আজকের তারিখ বাংলায়
+
 export function getBanglaDate(): string {
-  const days = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
-  const months = [
-    "জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন",
-    "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর",
-  ];
   const now = new Date();
-  const day = days[now.getDay()];
-  const date = toBengaliNumber(now.getDate());
-  const month = months[now.getMonth()];
-  const year = toBengaliNumber(now.getFullYear());
-  return `${day}, ${date} ${month}, ${year}`;
+
+  return now.toLocaleDateString("bn-BD", {
+    timeZone: "Asia/Dhaka",
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 }
+
 
 // Product type definition
 export interface Product {
