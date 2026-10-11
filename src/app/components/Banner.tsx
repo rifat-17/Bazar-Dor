@@ -6,18 +6,17 @@ import Link from "next/link";
 import { getBanglaDate } from "@/lib/utils";
 
 const Banner = () => {
-  
+  const banglaDate = getBanglaDate();
 
   return (
     <section className=" mt-7 rounded-3xl border mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-20">
       {/* Left content */}
       <div className="space-y-4">
         {/* Eyebrow / Date */}
-        <p className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-800">
+        <span className="badge badge-success badge-outline mb-3">
+            {banglaDate}
+          </span>
 
-          {getBanglaDate()}
-
-        </p>
 
         {/* Main heading */}
         <h1 className="text-3xl font-bold  text-gray-900 ">
