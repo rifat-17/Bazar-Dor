@@ -54,8 +54,11 @@ export default function SignUpPage() {
 
       if (error) {
         toast.error(
+
           error.message || "Google দিয়ে সাইন আপ করা যায়নি!"
+          
         );
+        console.log(error)
         setGoogleLoading(false);
       }
     } catch {
