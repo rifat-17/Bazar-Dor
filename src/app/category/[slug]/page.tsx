@@ -59,7 +59,7 @@ export default function CategoryPage() {
     return 0; // default — API order
   });
 
-  
+
 
   // Error / Empty State — 404 type
   if (error || products.length === 0) {
@@ -82,22 +82,27 @@ export default function CategoryPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div className="card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
             <span>{category?.icon}</span>
             {category?.nameBn}
           </h1>
           <p className="text-gray-500 text-sm mt-1">
-            এই ক্যাটাগরিতে মোট {products.length}টি পণ্য
+            {products.length.toLocaleString("bn-BD")}টি পণ্যের আজকের দাম ও পরিবর্তন
           </p>
         </div>
+        
+      </div>
+
+      <div className="card mb-4 items-end">
         {/* Sort Dropdown (C1 Challenge) */}
-        <SortDropdown value={sortBy} onChange={setSortBy} />
+        <SortDropdown 
+         value={sortBy} onChange={setSortBy} />
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
         {sortedProducts.map((product) => (
           <Cards key={product.id} product={product} />
         ))}
