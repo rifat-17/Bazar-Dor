@@ -6,9 +6,7 @@ import Link from "next/link";
 import { getBanglaDate } from "@/lib/utils";
 
 const Banner = () => {
-  const date = new Date().toLocaleDateString("bn-BD", {
-    dateStyle: "full",
-  });
+  
 
   return (
     <section className=" mt-7 rounded-3xl border mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-20">
