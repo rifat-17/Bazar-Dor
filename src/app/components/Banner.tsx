@@ -3,6 +3,7 @@ import { Button } from "@heroui/react";
 import Image from "next/image";
 import BannerImg from "@/assets/bazar-hero.png";
 import Link from "next/link";
+import { getBanglaDate } from "@/lib/utils";
 
 const Banner = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -15,7 +16,9 @@ const Banner = () => {
       <div className="space-y-4">
         {/* Eyebrow / Date */}
         <p className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-medium text-green-800">
-           {date}
+
+          {getBanglaDate()}
+
         </p>
 
         {/* Main heading */}
@@ -32,17 +35,17 @@ const Banner = () => {
 
         {/* CTA */}
         <Link href={'#সব-পণ্য'}>
-            <Button
-          
-          
-          variant="danger"
-          className="font-semibold text-white bg-green-700"
-          size="lg"
-        >
-          সব পণ্য দেখুন ↓
-        </Button>
+          <Button
+
+
+            variant="danger"
+            className="font-semibold text-white bg-green-700"
+            size="lg"
+          >
+            সব পণ্য দেখুন ↓
+          </Button>
         </Link>
-        
+
       </div>
 
       {/* Right side image */}

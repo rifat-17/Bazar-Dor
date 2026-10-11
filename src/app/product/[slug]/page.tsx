@@ -75,7 +75,7 @@ export default async function ProductPage({
       <div className="bg-white border rounded-xl p-6 mb-8">
         <div className="flex flex-col md:flex-row md:items-start gap-6">
           {/* Left: Emoji + Title */}
-          <div className="flex flex-2 items-center gap-4">
+          <div className="flex flex-2 items-center gap-4 mt-10">
             <span className="text-6xl">{product.image}</span>
             <div>
               <h1 className="text-3xl font-bold text-gray-800">
@@ -88,33 +88,47 @@ export default async function ProductPage({
                 গতকালের তুলনায় আজ দাম বেড়েছে {(product.today - product.yesterday).toLocaleString("bn-BD")} টাকা
               </p>
 
-             
+
             </div>
           </div>
           {/* right side */}
-          <div className="bg-yellow-50  border border-yellow-100 rounded-xl p-4">
-            <p className="text-2xl text-black ">আজকের দাম</p>
-            <p>{formatPrice(product.today)}</p>
-            <span className="text-gray-500">
-              টাকা/
-              {unitMap[product.unit] || product.unit || "একক"}
-            </span>
-            <span
-                  className={`badge ${
-                    product.change.dir === "up"
-                      ? "badge-error text-white"
-                      : product.change.dir === "down"
+          
+          {/* Today's Price */}
+          <div className="rounded-xl border border-gray-200 bg-gray-100 p-5">
+            <p className="text-lg font-medium text-gray-600">
+              আজকের দাম
+            </p>
+
+            <p className="py-2 text-3xl font-bold text-gray-900">
+              {formatPrice(product.today)}
+            </p>
+
+            <p className="text-sm text-gray-500">
+              টাকা / {unitMap[product.unit] || product.unit || "একক"}
+            </p>
+
+            <div className="mt-3">
+              <span
+                className={`badge ${product.change.dir === "up"
+                    ? "badge-error text-white"
+                    : product.change.dir === "down"
                       ? "badge-success text-white"
                       : "badge-ghost"
                   }`}
-                >
-                  {product.change.dir === "up"
-                    ? `▲ ${toBengaliNumber(Math.abs(product.change.pct).toFixed(1))}%`
-                    : product.change.dir === "down"
-                    ? `▼ ${toBengaliNumber(Math.abs(product.change.pct).toFixed(1))}%`
+              >
+                {product.change.dir === "up"
+                  ? `▲ ${toBengaliNumber(
+                    Math.abs(product.change.pct).toFixed(1)
+                  )}%`
+                  : product.change.dir === "down"
+                    ? `▼ ${toBengaliNumber(
+                      Math.abs(product.change.pct).toFixed(1)
+                    )}%`
                     : `— ${toBengaliNumber("0.0")}%`}
-                </span>
+              </span>
+            </div>
           </div>
+        
         </div>
       </div>
 
@@ -185,28 +199,7 @@ export default async function ProductPage({
         </div>
       </div>
 
-      {/* Historical Price Comparison */}
-      <div className="bg-white border rounded-xl p-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-4">📊 দামের তুলনা</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-3 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-500">আজ</p>
-            <p className="text-lg font-bold">{formatPrice(product.today)} টাকা</p>
-          </div>
-          <div className="text-center p-3 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-500">গতকাল</p>
-            <p className="text-lg font-bold">{formatPrice(product.yesterday)} টাকা</p>
-          </div>
-          <div className="text-center p-3 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-500">গত সপ্তাহ</p>
-            <p className="text-lg font-bold">{formatPrice(product.lastWeek)} টাকা</p>
-          </div>
-          <div className="text-center p-3 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-500">গত মাস</p>
-            <p className="text-lg font-bold">{formatPrice(product.lastMonth)} টাকা</p>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }
