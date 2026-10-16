@@ -5,8 +5,8 @@ import BannerImg from "@/assets/bazar-hero.png";
 import Link from "next/link";
 import { getBanglaDate } from "@/lib/utils";
 
+
 const Banner = () => {
-  const banglaDate = getBanglaDate();
 
   return (
     <section className=" mt-7 rounded-3xl border mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-20">
@@ -14,8 +14,8 @@ const Banner = () => {
       <div className="space-y-4">
         {/* Eyebrow / Date */}
         <span className="badge badge-success badge-outline mb-3">
-            {banglaDate}
-          </span>
+          {getBanglaDate()}
+        </span>
 
 
         {/* Main heading */}
