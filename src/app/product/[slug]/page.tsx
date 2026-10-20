@@ -1,6 +1,7 @@
-import { formatPrice, toBengaliNumber, getUnitBn, type Product } from "@/lib/utils";
+import { formatPrice, toBengaliNumber, type Product } from "@/lib/utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AddToBazarButton from "@/app/components/AddToBazarButton";
 
 async function getProduct(slug: string): Promise<Product | null> {
 
@@ -126,6 +127,14 @@ export default async function ProductPage({
                     )}%`
                     : `— ${toBengaliNumber("0.0")}%`}
               </span>
+            </div>
+
+            <div className="mt-4">
+              <AddToBazarButton
+                slug={product.slug}
+                unit={product.unit}
+                nameBn={product.nameBn}
+              />
             </div>
           </div>
         

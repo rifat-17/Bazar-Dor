@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 
 
 import Footer from "./components/Footer";
+import { BazarProvider } from "./components/BazarProvider";
 import { Toaster } from "react-hot-toast";
 
 const notoSerifBengali = Noto_Serif_Bengali({
@@ -28,9 +29,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${notoSerifBengali.variable}  h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <BazarProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </BazarProvider>
         <Toaster position="top-center" reverseOrder={false} />
         </body>
       

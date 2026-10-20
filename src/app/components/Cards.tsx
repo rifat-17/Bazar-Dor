@@ -1,6 +1,7 @@
 
 import Link from "next/link";
 import type { Product } from "@/lib/utils";
+import AddToBazarButton from "./AddToBazarButton";
 
 interface CardsProps {
   product: Product;
@@ -49,11 +50,11 @@ export default function Cards({ product }: CardsProps) {
   const unitLabel = unitLabels[unit] ?? unit ?? "একক";
 
   return (
-    <Link
-      href={`/product/${slug}`}
-      className="group block h-full rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-    >
-      <article className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 transition-all duration-200 group-hover:-translate-y-1 group-hover:border-red-200 group-hover:shadow-lg sm:p-5">
+    <article className="group flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 transition-all duration-200 hover:-translate-y-1 hover:border-red-200 hover:shadow-lg sm:p-5">
+      <Link
+        href={`/product/${slug}`}
+        className="flex flex-1 flex-col rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+      >
         {/* Product information */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3">
@@ -104,12 +105,12 @@ export default function Cards({ product }: CardsProps) {
               / {unitLabel}
             </span>
           </div>
-
-          <p className="mt-3 text-xs font-medium text-red-600 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
-            বিস্তারিত দেখুন →
-          </p>
         </div>
-      </article>
-    </Link>
+      </Link>
+
+      <div className="mt-3">
+        <AddToBazarButton slug={slug} unit={unit} nameBn={nameBn} compact />
+      </div>
+    </article>
   );
 }

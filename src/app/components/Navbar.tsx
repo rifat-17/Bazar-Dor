@@ -9,6 +9,7 @@ import { getBanglaDate, type Category } from "@/lib/utils";
 import toast from "react-hot-toast";
 
 import Marquee from "./Marquee";
+import BasketBadge from "./BasketBadge";
 
 const API_URL =
   "https://openapi.programming-hero.com/api/bazardor/categories";
@@ -39,11 +40,6 @@ export default function Navbar() {
 
     fetchCategories();
   }, []);
-
-  // Close mobile menu when navigating
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
 
   // Sign out
   const handleSignOut = async () => {
@@ -100,6 +96,7 @@ export default function Navbar() {
 
           {/* Desktop Authentication */}
           <div className="hidden items-center gap-3 lg:flex">
+            <BasketBadge />
             {isPending ? (
               <span
                 className="loading loading-spinner loading-sm text-green-700"
@@ -222,6 +219,7 @@ export default function Navbar() {
         className={`border-t border-gray-100 ${
           mobileMenuOpen ? "block" : "hidden"
         } lg:block`}
+        onClick={() => setMobileMenuOpen(false)}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <nav aria-label="পণ্যের ক্যাটাগরি">
@@ -252,6 +250,7 @@ export default function Navbar() {
           {/* Mobile Authentication */}
           {mobileMenuOpen && (
             <div className="flex gap-2 border-t border-gray-100 py-3 lg:hidden">
+              <BasketBadge />
               {isPending ? (
                 <span className="loading loading-spinner loading-sm text-green-700" />
               ) : session ? (
